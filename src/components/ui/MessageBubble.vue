@@ -142,11 +142,15 @@ const formatTime = (timestamp?: number) => {
 
 .message-content {
   max-width: 75%;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .message-body {
   display: flex;
   flex-direction: column;
+  min-width: 0;
+  overflow: hidden;
 }
 
 .message-header {
@@ -183,6 +187,9 @@ const formatTime = (timestamp?: number) => {
   font-family: 'Crimson Text', serif;
   font-size: 16px;
   line-height: 1.8;
+  min-width: 0;
+  overflow: hidden;
+  word-wrap: break-word;
 }
 
 .message-text::before {
@@ -257,8 +264,43 @@ const formatTime = (timestamp?: number) => {
 .message-content-text {
   line-height: 1.8;
   word-break: break-word;
+  overflow-wrap: break-word;
   position: relative;
   z-index: 1;
+  max-width: 100%;
+  overflow: hidden;
+}
+
+.message-content-text :deep(*) {
+  max-width: 100%;
+  word-break: break-word;
+  overflow-wrap: break-word;
+}
+
+.message-content-text :deep(pre) {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.message-content-text :deep(code) {
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: break-word;
+  max-width: 100%;
+}
+
+.message-content-text :deep(table) {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+}
+
+.message-content-text :deep(a) {
+  word-break: break-all;
+  overflow-wrap: anywhere;
 }
 
 .message-actions {

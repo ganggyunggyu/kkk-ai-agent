@@ -57,7 +57,10 @@ onMounted(() => {
       <section class="messages-container">
         <n-scrollbar ref="scrollbarRef" class="messages-scroll">
           <ul class="messages-list">
-            <li v-for="(msg, idx) in displayMessages" :key="`${idx}-${msg.timestamp}`">
+            <li
+              v-for="(msg, idx) in displayMessages"
+              :key="`${idx}-${msg.timestamp}`"
+            >
               <MessageBubble
                 :message="msg"
                 :index="idx"
@@ -77,7 +80,7 @@ onMounted(() => {
 <style scoped>
 .chat-main {
   flex: 1;
-  padding: calc(80px + 16px) 16px calc(120px + 80px);
+  padding: calc(80px + 16px) 16px 0;
   overflow-x: hidden;
   overflow-y: auto;
 }

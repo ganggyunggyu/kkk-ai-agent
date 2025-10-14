@@ -1,8 +1,8 @@
 import { defineStore } from 'pinia';
-import { ref, computed, reactive } from 'vue';
+import { ref, computed, reactive, watch } from 'vue';
 import { generateText } from '../service/_chat.service';
 import type { ChatService } from '../types/_chat';
-import { INTRO_MARKDOWN } from '../constants/_texts';
+import { INTRO_MARKDOWN, DEFAULT_INTRO } from '../constants/_texts';
 import type { Message } from '../types/_chat';
 
 export const useChatStore = defineStore(
@@ -10,21 +10,30 @@ export const useChatStore = defineStore(
   () => {
     const defaultService: ChatService = 'clean';
 
+    const service = ref<ChatService>(defaultService);
+
     const messages = ref<Message[]>([
       {
         id: 'intro-message',
         role: 'bot',
-        content: INTRO_MARKDOWN,
+        content: INTRO_MARKDOWN[service.value] || DEFAULT_INTRO,
         timestamp: Date.now(),
       },
     ]);
 
     const keyword = ref('');
     const refMsg = ref('');
-    const service = ref<ChatService>(defaultService);
     const pendingMessages = reactive(new Set<string>());
     const showRefInput = ref(true);
     const activeRequests = reactive(new Map<string, AbortController>());
+
+    // 서비스 변경 시 인트로 메시지 업데이트
+    watch(service, (newService) => {
+      const introMessage = messages.value.find(msg => msg.id === 'intro-message');
+      if (introMessage) {
+        introMessage.content = INTRO_MARKDOWN[newService] || DEFAULT_INTRO;
+      }
+    });
 
     const displayMessages = computed(() => messages.value);
     const hasMessages = computed(() => messages.value.length > 1);
@@ -176,7 +185,7 @@ export const useChatStore = defineStore(
         {
           id: 'intro-message',
           role: 'bot',
-          content: INTRO_MARKDOWN,
+          content: INTRO_MARKDOWN[service.value] || DEFAULT_INTRO,
           timestamp: Date.now(),
         },
       ];
