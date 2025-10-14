@@ -1,0 +1,212 @@
+@import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+
+:root {
+  --antique-cream: #faf8f3;
+  --parchment: #f0ead6;
+  --aged-paper: #e8dfc7;
+  --vintage-brown: #6b5d4f;
+  --deep-burgundy: #4a3428;
+  --ink-black: #2c2419;
+  --sepia: #8b6f47;
+  --gold-accent: #b8965d;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Crimson Text', 'EB Garamond', 'Georgia', serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: var(--antique-cream);
+  color: var(--ink-black);
+  line-height: 1.8;
+}
+
+#app {
+  width: 100%;
+  height: 100vh;
+  background:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(184, 150, 93, 0.08) 0%,
+      transparent 50%
+    ),
+    radial-gradient(
+      circle at 80% 70%,
+      rgba(107, 93, 79, 0.06) 0%,
+      transparent 50%
+    ),
+    var(--antique-cream);
+  overflow-x: hidden;
+  position: relative;
+}
+
+#app::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image:
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 40px,
+      rgba(107, 93, 79, 0.02) 40px,
+      rgba(107, 93, 79, 0.02) 41px
+    );
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Naive UI Select Dropdown 커스텀 스타일 */
+.n-base-select-menu {
+  background: var(--parchment) !important;
+  border: 2px solid var(--vintage-brown) !important;
+  border-radius: 0 !important;
+  box-shadow:
+    3px 3px 0 rgba(0, 0, 0, 0.15),
+    0 8px 24px rgba(42, 37, 34, 0.2),
+    inset 0 1px 0 rgba(255, 255, 255, 0.4) !important;
+  padding: 8px !important;
+  margin-top: 4px !important;
+}
+
+.n-base-select-option {
+  font-family: 'Crimson Text', serif !important;
+  font-size: 15px !important;
+  color: var(--ink-black) !important;
+  padding: 10px 14px !important;
+  border-radius: 0 !important;
+  background: transparent !important;
+  border-left: 3px solid transparent !important;
+  transition: all 0.2s ease !important;
+  font-weight: 500 !important;
+}
+
+.n-base-select-option:hover {
+  background: var(--aged-paper) !important;
+  border-left-color: var(--sepia) !important;
+  transform: translateX(2px) !important;
+}
+
+.n-base-select-option.n-base-select-option--selected {
+  background: var(--aged-paper) !important;
+  border-left-color: var(--deep-burgundy) !important;
+  color: var(--deep-burgundy) !important;
+  font-weight: 600 !important;
+}
+
+.n-base-select-option.n-base-select-option--selected::after {
+  content: '✓';
+  position: absolute;
+  right: 14px;
+  color: var(--deep-burgundy);
+  font-weight: bold;
+}
+
+/* Naive UI Modal 커스텀 스타일 */
+.n-card {
+  background: var(--parchment) !important;
+  border: 2px solid var(--vintage-brown) !important;
+  border-radius: 0 !important;
+  box-shadow:
+    4px 4px 0 rgba(0, 0, 0, 0.15),
+    0 12px 32px rgba(42, 37, 34, 0.25) !important;
+  font-family: 'Crimson Text', serif !important;
+}
+
+.n-card__header {
+  font-family: 'EB Garamond', serif !important;
+  color: var(--deep-burgundy) !important;
+  font-size: 20px !important;
+  font-weight: 600 !important;
+  border-bottom: 2px solid var(--vintage-brown) !important;
+}
+
+.n-card__content {
+  font-family: 'Crimson Text', serif !important;
+  color: var(--ink-black) !important;
+  font-size: 16px !important;
+  line-height: 1.8 !important;
+}
+
+.n-button {
+  font-family: 'Crimson Text', serif !important;
+  border-radius: 0 !important;
+  border: 2px solid var(--vintage-brown) !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.3px !important;
+  transition: all 0.2s ease !important;
+}
+
+.n-button--default-type {
+  background: var(--aged-paper) !important;
+  color: var(--ink-black) !important;
+}
+
+.n-button--default-type:hover {
+  background: var(--parchment) !important;
+  border-color: var(--sepia) !important;
+  transform: translateY(-1px) !important;
+}
+
+.n-button--error-type {
+  background: var(--deep-burgundy) !important;
+  color: var(--antique-cream) !important;
+  border-color: var(--deep-burgundy) !important;
+}
+
+.n-button--error-type:hover {
+  background: #3a2418 !important;
+  transform: translateY(-1px) !important;
+}
+
+/* Naive UI Input 커스텀 스타일 */
+.n-input {
+  font-family: 'Crimson Text', serif !important;
+}
+
+.n-input__input-el,
+.n-input__textarea-el {
+  font-family: 'Crimson Text', serif !important;
+  font-size: 16px !important;
+  color: var(--ink-black) !important;
+  background: transparent !important;
+}
+
+.n-input__input-el::placeholder,
+.n-input__textarea-el::placeholder {
+  color: var(--vintage-brown) !important;
+  opacity: 0.5 !important;
+}
+
+.n-input__border,
+.n-input__state-border {
+  border: none !important;
+}
+
+.n-input:hover .n-input__state-border {
+  border: none !important;
+}
+
+.n-input.n-input--focus .n-input__state-border {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* Naive UI Scrollbar 커스텀 */
+.n-scrollbar-rail__scrollbar {
+  background: var(--vintage-brown) !important;
+  opacity: 0.3 !important;
+  border-radius: 0 !important;
+}
+
+.n-scrollbar-rail:hover .n-scrollbar-rail__scrollbar {
+  opacity: 0.5 !important;
+}
