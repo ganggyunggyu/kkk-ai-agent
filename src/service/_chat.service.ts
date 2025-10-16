@@ -1,7 +1,7 @@
 import { axios } from '../app';
 import type { ChatService } from '../types/_chat';
 
-type GenerationRequest = {
+export type GenerationRequest = {
   service: ChatService;
   keyword: string;
   ref: string;

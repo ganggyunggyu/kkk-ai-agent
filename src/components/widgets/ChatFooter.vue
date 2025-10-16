@@ -23,8 +23,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
   <footer class="floating-input">
     <section class="input-container">
       <div class="input-card">
-        <!-- 참조원고 입력 부분 주석처리 -->
-        <!-- <transition name="ref-slide">
+        <transition name="ref-slide">
           <section v-show="showRefInput" class="ref-input-section">
             <div class="input-surface">
               <ModernInput
@@ -37,7 +36,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
               />
             </div>
           </section>
-        </transition> -->
+        </transition>
 
         <section class="main-input-row">
           <div class="input-wrapper">
@@ -53,15 +52,14 @@ const handleKeyDown = (e: KeyboardEvent) => {
             />
 
             <nav class="input-actions">
-              <!-- 참조원고 버튼 주석처리 -->
-              <!-- <ModernButton
+              <ModernButton
                 variant="ghost"
                 size="sm"
                 icon-only
                 :icon="DocumentIcon"
                 @click="showRefInput = !showRefInput"
                 :class="{ active: showRefInput }"
-              /> -->
+              />
 
               <ModernButton
                 v-if="keyword"

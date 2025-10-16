@@ -8,7 +8,16 @@ export interface Message {
   service?: string;
 }
 
-export type ChatService = 'clean' | 'synonym' | 'review' | 'news' | 'deep_search';
+export type ChatService =
+  | 'clean'
+  | 'synonym'
+  | 'review'
+  | 'news'
+  | 'deep_search'
+  | 'xai-prompt-engineer'
+  | 'openai-prompt-engineer'
+  | 'story-analysis'
+  | 'requirement-analysis';
 
 export interface SelectedMessagePackage {
   userMessage: Message;
