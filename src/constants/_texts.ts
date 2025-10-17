@@ -56,6 +56,21 @@ export const INTRO_MARKDOWN: Record<string, string> = {
 
 export const DEFAULT_INTRO = INTRO_MARKDOWN.clean;
 
+export const PLACEHOLDER_TEXT: Record<string, string> = {
+  clean: '메시지를 입력하세요...',
+  synonym: '분석할 단어나 표현을 입력해주세요',
+  review: '비평받고 싶은 글을 입력해주세요',
+  news: '궁금한 주제나 키워드를 입력해주세요',
+  deep_search: '탐구하고 싶은 주제를 입력해주세요',
+  'xai-prompt-engineer': '프롬프트 엔지니어링이 필요한 작업을 입력해주세요',
+  'openai-prompt-engineer': '프롬프트 엔지니어링이 필요한 작업을 입력해주세요',
+  'story-analysis': '분석할 작품명을 입력해주세요',
+  'requirement-analysis': '분석할 업체 요구사항을 입력해주세요',
+  translation_compare: '작가명 - 책 제목을 입력해주세요 (예: 헤르만 헤세 - 데미안)',
+};
+
+export const DEFAULT_PLACEHOLDER = PLACEHOLDER_TEXT.clean;
+
 export const MSG_COPY_SUCCESS = '복사 성공';
 export const MSG_COPY_FAIL = '복사 실패';
 export const MSG_DOWNLOAD_SUCCESS = '다운로드가 완료되었습니다.';
