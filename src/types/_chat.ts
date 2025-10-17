@@ -17,7 +17,8 @@ export type ChatService =
   | 'xai-prompt-engineer'
   | 'openai-prompt-engineer'
   | 'story-analysis'
-  | 'requirement-analysis';
+  | 'requirement-analysis'
+  | 'translation_compare';
 
 export interface SelectedMessagePackage {
   userMessage: Message;
