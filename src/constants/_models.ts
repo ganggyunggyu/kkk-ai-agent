@@ -10,4 +10,5 @@ export const MODEL_OPTIONS: { label: string; value: ChatService }[] = [
   { label: 'OpenAI 프롬프트 엔지니어', value: 'openai-prompt-engineer' },
   { label: '작품 스토리 분석', value: 'story-analysis' },
   { label: '업체 요구사항 분석', value: 'requirement-analysis' },
+  { label: '번역본 비교', value: 'translation_compare' },
 ];
