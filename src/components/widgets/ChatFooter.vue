@@ -1,14 +1,19 @@
 <script setup lang="ts">
-import { ref } from 'vue';
+import { computed } from 'vue';
 import { storeToRefs } from 'pinia';
 import { Send as SendIcon, Document as DocumentIcon } from '@vicons/ionicons5';
 import ModernButton from '../ui/ModernButton.vue';
 import ModernInput from '../ui/ModernInput.vue';
 import { useChatStore } from '@/stores';
+import { PLACEHOLDER_TEXT, DEFAULT_PLACEHOLDER } from '@/constants/_texts';
 
 const chatStore = useChatStore();
-const { keyword, refMsg, isLoading, showRefInput } = storeToRefs(chatStore);
+const { keyword, refMsg, isLoading, showRefInput, service } = storeToRefs(chatStore);
 const { handleGenerate } = chatStore;
+
+const placeholder = computed(() => {
+  return PLACEHOLDER_TEXT[service.value] || DEFAULT_PLACEHOLDER;
+});
 
 const handleKeyDown = (e: KeyboardEvent) => {
   if (e.isComposing || e.keyCode === 229) return;
@@ -45,7 +50,7 @@ const handleKeyDown = (e: KeyboardEvent) => {
               type="text"
               :rows="1"
               :autosize="{ minRows: 1, maxRows: 4 }"
-              placeholder="메시지를 입력하세요..."
+              :placeholder="placeholder"
               class="main-input"
               :onEnter="() => handleGenerate()"
               @keydown="handleKeyDown"
