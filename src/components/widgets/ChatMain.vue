@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, nextTick } from 'vue';
 import { storeToRefs } from 'pinia';
-import { NScrollbar, createDiscreteApi } from 'naive-ui';
+import { createDiscreteApi } from 'naive-ui';
 import MessageBubble from '../ui/MessageBubble.vue';
 import { useChatStore } from '@/stores';
 
@@ -10,7 +10,7 @@ const chatStore = useChatStore();
 const { displayMessages } = storeToRefs(chatStore);
 const { handleRegenerate, deleteMessage } = chatStore;
 
-const scrollbarRef = ref<InstanceType<typeof NScrollbar> | null>(null);
+const scrollAnchorRef = ref<HTMLDivElement | null>(null);
 
 const copyMsg = async (text: string) => {
   try {
@@ -33,46 +33,49 @@ const handleDownload = (msg: any) => {
   message.success('다운로드 완료');
 };
 
-const scrollToBottom = () => {
-  if (scrollbarRef.value) {
-    scrollbarRef.value.scrollTo({ top: 999999, behavior: 'smooth' });
-  }
+const scrollToBottom = async (smooth = true) => {
+  await nextTick();
+
+  setTimeout(() => {
+    scrollAnchorRef.value?.scrollIntoView({
+      behavior: smooth ? 'smooth' : 'auto',
+      block: 'end'
+    });
+  }, 100);
 };
 
 watch(
-  () => displayMessages.value.length,
+  displayMessages,
   () => {
-    setTimeout(scrollToBottom, 100);
-  }
+    scrollToBottom();
+  },
+  { deep: true }
 );
 
 onMounted(() => {
-  scrollToBottom();
+  scrollToBottom(false);
 });
 </script>
 
 <template>
   <main class="chat-main">
-    <section class="chat-container">
-      <section class="messages-container">
-        <n-scrollbar ref="scrollbarRef" class="messages-scroll">
-          <ul class="messages-list">
-            <li
-              v-for="(msg, idx) in displayMessages"
-              :key="`${idx}-${msg.timestamp}`"
-            >
-              <MessageBubble
-                :message="msg"
-                :index="idx"
-                @copy="copyMsg"
-                @download="handleDownload"
-                @regenerate="handleRegenerate"
-                @delete="deleteMessage"
-              />
-            </li>
-          </ul>
-        </n-scrollbar>
-      </section>
+    <section ref="messagesContainerRef" class="messages-container">
+      <ul class="messages-list">
+        <li
+          v-for="(msg, idx) in displayMessages"
+          :key="`${idx}-${msg.timestamp}`"
+        >
+          <MessageBubble
+            :message="msg"
+            :index="idx"
+            @copy="copyMsg"
+            @download="handleDownload"
+            @regenerate="handleRegenerate"
+            @delete="deleteMessage"
+          />
+        </li>
+      </ul>
+      <div ref="scrollAnchorRef" class="scroll-anchor"></div>
     </section>
   </main>
 </template>
@@ -81,33 +84,36 @@ onMounted(() => {
 .chat-main {
   flex: 1;
   padding: calc(80px + 16px) 16px 0;
-  overflow-x: hidden;
-  overflow-y: auto;
-}
-
-.chat-container {
-  max-width: 90vw;
-  margin: 0 auto;
-  height: 100%;
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
 }
 
 .messages-container {
-  height: calc(100dvh - 80px - 180px);
-  display: flex;
-  flex-direction: column;
+  flex: 1;
+  max-width: 90vw;
+  margin: 0 auto;
   overflow-x: hidden;
+  overflow-y: auto;
+  width: 100%;
+  padding-bottom: 16px;
 }
 
-.messages-scroll {
-  height: 100%;
-  overflow-x: hidden;
+.messages-container::-webkit-scrollbar {
+  width: 6px;
 }
 
-.messages-scroll :deep(.n-scrollbar-content) {
-  overflow-x: hidden;
+.messages-container::-webkit-scrollbar-track {
+  background: rgba(139, 115, 85, 0.1);
+}
+
+.messages-container::-webkit-scrollbar-thumb {
+  background: var(--vintage-brown);
+  border-radius: 3px;
+}
+
+.messages-container::-webkit-scrollbar-thumb:hover {
+  background: var(--deep-burgundy);
 }
 
 .messages-list {
@@ -115,12 +121,16 @@ onMounted(() => {
   display: flex;
   flex-direction: column;
   gap: 16px;
-  overflow-x: hidden;
+  width: 100%;
+}
+
+.scroll-anchor {
+  height: 1px;
   width: 100%;
 }
 
 @media (max-width: 768px) {
-  .chat-container {
+  .messages-container {
     max-width: calc(100vw - 32px);
   }
 }
